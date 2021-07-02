@@ -39,13 +39,13 @@ Test statements coverage of 100% is the minimum target; keeping in mind that som
 npm i
 ```
 
-## Build
+### Build
 
 ```
 npx hardhat compile
 ```
 
-## Test
+### Test
 
 ```
 npx hardhat test

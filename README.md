@@ -29,7 +29,7 @@ All new features should adhere to the following workflow:
   7. Define Invariants Using Scribble
   8. Submit for Review
 
-Test statements coverage of 100% is the minimum target; keeping in mind that some statements may require several tests to confirm the function adheres to spec.
+Test statement coverage of 100% is the minimum target; keeping in mind that some statements may require several tests to confirm the function adheres to spec.
 
 ## Setup
 

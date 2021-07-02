@@ -13,15 +13,15 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 
   - `Depositor`: Deposits tokens into, and withdraws tokens out of, `boxes`.
   - `Manager`: Sets current `instrument`, adjusts `box` parameters, and exits `instrument`s. - "I don't make the rules, I just think them up and write them down."
-  - `Handler`: Handles the `box` when it `cycle`s the `box`'s `instrument`s.
+  - `Handler`: Handles the `box` when it `precess`es the `box`'s `instrument`s.
   - `Collector`: Receives fees and related payouts.
 
 
 ## Definitions
 
   - `Instrument`: is a general term for a contract that handles deposited token through internal calculations (e.g. reward emissions) or by interacting with other ecosystem contracts (e.g. yield aggregation strategies).
-  - `Child Box`: A `box` the attached `instrument`s may deposit into to be managed and processed separately.
-  - `Process`: Executes the `instrument`'s core functionality. In other projects referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl's geyser), etc. 
+  - `Child Box`: A `box` the attached `instrument`s may deposit into, so that underlying or rewards may be managed and processed separately.
+  - `Process`: Executes the `instrument`'s core functionality. In other projects referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl geyser), etc. 
   - 
 
 ## Specifications
@@ -86,7 +86,7 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 
 #### On Exit Instrument
 
-  - all underlying moved from `instrument` to parent `box`.
+  - All underlying moved from `instrument` to parent `box`.
   - If deposits in ecosystem contracts, they must be withdrawn as well.
   - If rewards, they must be claimed (when claiming enabled).
 

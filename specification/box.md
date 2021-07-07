@@ -19,10 +19,23 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 
 ## Definitions
 
-  - `Strategy`: is a general term for a contract that handles deposited tokens through internal calculations (e.g. reward emissions) or by interacting with other ecosystem contracts (e.g. yield aggregation strategies).
-  - `Child Box`: A `box` the attached `strategy`(ies) may deposit into, so that underlying or rewards may be managed and processed separately.
-  - `Process`: Executes the `strategy`(ies) core functionality. In other projects this is referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl geyser), etc. 
-  - `Underlying`: The token address(es) managed by a box. Each `Box` has 1 or more `underlying`.
+#### `Strategy`:
+
+Is a general term for a contract that handles deposited tokens through internal calculations (e.g. reward emissions) or by interacting with other ecosystem contracts (e.g. yield aggregation strategies).
+
+#### `Child Box`:
+
+A `box` the attached `strategy`(ies) may deposit into, so that underlying or rewards may be managed and processed separately.
+
+![Image](https://github.com/ForceDAO/zeal/blob/spec/box/specification/images/ParentChildBoxes.png)
+
+#### `Process`:
+
+Executes the `strategy`(ies) core functionality. In other projects this is referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl geyser), etc. 
+
+#### `Underlying`:
+
+The token address(es) managed by a box. Each `Box` has 1 or more `underlying`.
 
 ## Specifications
 
@@ -85,6 +98,9 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 
   - Receipts are converted into `underlying` pro rata.
   - `Child Box` receipts, equal to the number of parent box receipts withdrawn, are `transferred` to the `Depositor`. (If a `Depositor` wishes to withdraw from a child vault they must do so by directly calling that vault.)
+
+![Image](https://github.com/ForceDAO/zeal/blob/spec/box/specification/images/ParentChildBox-Withdraw.png)
+
 
 #### On Exit strategy
 

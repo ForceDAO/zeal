@@ -12,54 +12,57 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 ## Roles
 
   - `Depositor`: Deposits tokens into, and withdraws tokens out of, `boxes`.
-  - `Manager`: Sets current `instrument`, adjusts `box` parameters, and exits `instrument`s. - "I don't make the rules, I just think them up and write them down."
-  - `Handler`: Handles the `box` when it `precess`es the `box`'s `instrument`s.
+  - `Manager`: Sets current `strategy`, adjusts `box` parameters, and exits `strategy`(ies). - "I don't make the rules, I just think them up and write them down."
+  - `Handler`: Handles the `box` when it `process`es the `box`'s `strategy`(ies).
   - `Collector`: Receives fees and related payouts.
 
 
 ## Definitions
 
-  - `Instrument`: is a general term for a contract that handles deposited token through internal calculations (e.g. reward emissions) or by interacting with other ecosystem contracts (e.g. yield aggregation strategies).
-  - `Child Box`: A `box` the attached `instrument`s may deposit into, so that underlying or rewards may be managed and processed separately.
-  - `Process`: Executes the `instrument`'s core functionality. In other projects referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl geyser), etc. 
-  - 
+  - `Strategy`: is a general term for a contract that handles deposited tokens through internal calculations (e.g. reward emissions) or by interacting with other ecosystem contracts (e.g. yield aggregation strategies).
+  - `Child Box`: A `box` the attached `strategy`(ies) may deposit into, so that underlying or rewards may be managed and processed separately.
+  - `Process`: Executes the `strategy`(ies) core functionality. In other projects this is referred to as `harvest` (yearn), `rebalance` (vesper), `dohardwork` (harvest), `updateAccounting` (ampl geyser), etc. 
+  - `Underlying`: The token address(es) managed by a box. Each `Box` has 1 or more `underlying`.
 
 ## Specifications
 
 #### `Public` Actions:
 
-  - get underlying address
+  - get `underlying` address
   - get children `box`es
-  - get total underlying deposited
-  - get underlying in `box` (available to be deposited into `instrument`)
-  - get `instrument`s
+  - get total `underlying` deposited
+  - get `underlying` in `box` (available to be deposited into `strategy`)
+  - get `strategy`(ies)
 
 #### `Depositor` Actions:
 
-  - deposit underlying for self
-  - deposit underlying for another address
-  - withdraw underlying for self
+  - deposit `underlying` for self
+  - deposit `underlying` for another address
+  - withdraw `underlying` for self
   - when receipt is ERC20: all ERC20 token interactions (including `eip-2612`)
   - when receipt is ERC1155: all ERC115 token interactions
 
 #### `Manager` Actions:
 
-  - propose add `instrument`
-  - add `instrument`
-  - remove `instrument`
+
+  - propose add `strategy`
+  - add `strategy`
+  - remove `strategy`
   - add `child box`
   - remove `child box`
   - set withdraw fee
-  - set deposit ratio per `instrument`
+  - set tvl fee (monthly rate)
+  - set deposit ratio per `strategy`
   - set deposit cap
-  - withdraw from `instrument`
-  - set `Manager` address
+  - withdraw from `strategy`
+  - propose new `Manager` address
+  - accept `Manager` role
   - set `Handler` address
   - set `Collector` address
 
 #### `Handler` Actions:
 
-  - `process` attached `instrument`(s)
+  - `process` attached `strategy`(s)
   - `sweep` the `box` of unaccounted for tokens
 
 #### `Collector` Actions:
@@ -69,7 +72,7 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 #### On Create
 
   - Receipt token contract created.
-  - Underlying defined.
+  - `Underlying` defined.
   - `Manager` defined.
   - `Handler` and `Collector` default to `Manager`.
 
@@ -78,23 +81,22 @@ We choose the name `box` over the more common `vault` as vault implies that fund
   - Receipts are issued to track a `Depositor`'s share.
   - May deposit for self or depositFor another address.
 
-
 #### On Withdraw
 
-  - Receipts are converted into underlying pro rata.
-  - Child box receipts, equal to the number of parent box receipts withdrawn, are `transferred` to the `Depositor`. (If a `Depositor` wishes to withdraw from a child vault they must do so by directly calling that vault.)
+  - Receipts are converted into `underlying` pro rata.
+  - `Child Box` receipts, equal to the number of parent box receipts withdrawn, are `transferred` to the `Depositor`. (If a `Depositor` wishes to withdraw from a child vault they must do so by directly calling that vault.)
 
-#### On Exit Instrument
+#### On Exit strategy
 
-  - All underlying moved from `instrument` to parent `box`.
+  - All `underlying` moved from `strategy` to parent `box`.
   - If deposits in ecosystem contracts, they must be withdrawn as well.
-  - If rewards, they must be claimed (when claiming enabled).
+  - If rewards, they MAY be claimed (when claiming enabled).
 
 
-#### On Process Instrument
+#### On Process strategy
 
-  - `Box` calls `process` on `instrument`.
-  - If more than one active `instrument`, each are called in sequence.
+  - `Box` calls `process` on `strategy`.
+  - If more than one active `strategy`, each are called in sequence (`processById`, `processAll`).
 
 
 
@@ -103,14 +105,8 @@ We choose the name `box` over the more common `vault` as vault implies that fund
 
 ### Locked Funds
 
-### Faulty Instrument
+### Faulty strategy
 
 ### Miscalculated Share 
 
 ### Flash Loan / Whale Deposit 
-
-
-
-
-
-

@@ -21,13 +21,13 @@ To stay true to our goal of encouraging 3rd party use (import, fork, extend) we 
 All new features should adhere to the following workflow:
 
   1. Complete Specification
-  2. Define Public Interface
-  3. Document with Natspec
-  4. Define Placeholder Tests (e.g. [in Moka](https://mochajs.org/#pending-tests))
-  5. Implement Feature
-  6. Implement Tests
-  7. Define Invariants Using Scribble
-  8. Submit for Review
+  1. Define Public Interface
+  1. Document with Natspec
+  1. Define Placeholder Tests (e.g. [in Moka](https://mochajs.org/#pending-tests))
+  1. Implement Feature
+  1. Implement Tests
+  1. Define Invariants Using [Scribble](https://github.com/ConsenSys/scribble) and [verX](http://verx.ch/docs/)
+  1. Submit for Review
 
 Test statements coverage of 100% is the minimum target; keeping in mind that some statements may require several tests to confirm the function adheres to spec.
 
